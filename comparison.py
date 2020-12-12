@@ -69,10 +69,10 @@ def makeVars():
 
     return xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times
 
-def getPoints(xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times):
+def getPointsHeldt(xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times):
     timeCounter = 0
     while yNow >= 0:
-        vXNow, vYNow = getVectorVelocity(vXNow, vYNow, xForces, yForces)
+        vXNow, vYNow = getVectorVelocityHeldt(vXNow, vYNow, xForces, yForces)
 
         xNow += vXNow*timeInterval
         yNow += vYNow*timeInterval
@@ -89,12 +89,80 @@ def getPoints(xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, y
 
     return xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times
 
-def getVectorVelocity(vXNow, vYNow, xForces, yForces):
+def getVectorVelocityHeldt(vXNow, vYNow, xForces, yForces):
+
+    force = math.pow(vXNow,2)*k*-1
+
+    xForces.append(force)
+    yForces.append(-9.8*mass)
+
+    vXNow += force/mass*timeInterval
+
+    vYNow += -9.8*timeInterval
+
+    return vXNow, vYNow
+
+def getPointsAR(xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times):
+    timeCounter = 0
+    while yNow >= 0:
+        vXNow, vYNow = getVectorVelocityAR(vXNow, vYNow, xForces, yForces)
+
+        xNow += vXNow*timeInterval
+        yNow += vYNow*timeInterval
+
+        xVelocities.append(vXNow)
+        yVelocities.append(vYNow)
+        xCoords.append(xNow)
+        yCoords.append(yNow)
+
+        angles.append(math.degrees(math.atan(vYNow/vXNow)))
+
+        timeCounter += 1
+        times.append(timeCounter*timeInterval)
+
+    return xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times
+
+def getVectorVelocityAR(vXNow, vYNow, xForces, yForces):
     angle = math.atan(vYNow/vXNow)
 
     force = math.pow(vXNow,2)*k*-1
     xForce = force*math.cos(angle)
     yForce = -9.8*mass+force*math.sin(angle)
+
+    xForces.append(xForce)
+    yForces.append(yForce)
+
+    vXNow += xForce/mass*timeInterval
+
+    vYNow += yForce/mass*timeInterval
+
+    return vXNow, vYNow
+
+def getPointsIdeal(xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times):
+    timeCounter = 0
+    while yNow >= 0:
+        vXNow, vYNow = getVectorVelocityIdeal(vXNow, vYNow, xForces, yForces)
+
+        xNow += vXNow*timeInterval
+        yNow += vYNow*timeInterval
+
+        xVelocities.append(vXNow)
+        yVelocities.append(vYNow)
+        xCoords.append(xNow)
+        yCoords.append(yNow)
+
+        angles.append(math.degrees(math.atan(vYNow/vXNow)))
+
+        timeCounter += 1
+        times.append(timeCounter*timeInterval)
+
+    return xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times
+
+def getVectorVelocityIdeal(vXNow, vYNow, xForces, yForces):
+    angle = math.atan(vYNow/vXNow)
+
+    xForce = 0
+    yForce = -9.8*mass
 
     xForces.append(xForce)
     yForces.append(yForce)
@@ -139,7 +207,7 @@ def drawAxes(scale):
         label = yD*i/scale
         text = makeText("%0.1f" % label,60,xD*i+100,"white",1,"arial")
 
-def displayPoints(xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times, scale):
+def displayPoints(color, xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times, scale):
     for i in range(len(xCoords)):
         text2 = makeText("%.2f" % times[i],1130,800-30,"white",6,"arial")
         text3 = makeText("(%.2f,%.2f)" % (xCoords[i], yCoords[i]),1130,750-30,"white",6,"arial")
@@ -149,8 +217,8 @@ def displayPoints(xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocitie
 
         point = Point(xCoords[i]*scale+100,yCoords[i]*scale+100)
         circle = Circle(point, 3)
-        circle.setOutline("white")
-        circle.setFill("white")
+        circle.setOutline(color)
+        circle.setFill(color)
         circle.draw(gw)
 
         if i < len(xCoords)-1:
@@ -173,7 +241,7 @@ def main():
 
     scale = findScalingNumber(xCoords, yCoords)
 
-    displayPoints(xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times, scale)
+    displayPoints("red", xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times, scale)
 
     while True:
         key = gw.checkKey()

@@ -92,9 +92,8 @@ def getPoints(xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, y
 def getVectorVelocity(vXNow, vYNow, xForces, yForces):
     angle = math.atan(vYNow/vXNow)
 
-    force = math.pow(vXNow,2)*k*-1
-    xForce = force*math.cos(angle)
-    yForce = -9.8*mass+force*math.sin(angle)
+    xForce = 0
+    yForce = -9.8*mass
 
     xForces.append(xForce)
     yForces.append(yForce)
