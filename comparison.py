@@ -221,12 +221,11 @@ def displayPoints(color, xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVe
         circle.setFill(color)
         circle.draw(gw)
 
-        if i < len(xCoords)-1:
-            text2.undraw()
-            text3.undraw()
-            text4.undraw()
-            text5.undraw()
-            text6.undraw()
+        text2.undraw()
+        text3.undraw()
+        text4.undraw()
+        text5.undraw()
+        text6.undraw()
 
         time.sleep(0.01)
 
@@ -236,12 +235,17 @@ def main():
     makeWindowDetails()
 
     xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times = makeVars()
-
-    xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times = getPoints(xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times)
-
+    xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times = getPointsIdeal(xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times)
     scale = findScalingNumber(xCoords, yCoords)
-
     displayPoints("red", xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times, scale)
+
+    xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times = makeVars()
+    xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times = getPointsHeldt(xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times)
+    displayPoints("yellow", xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times, scale)
+
+    xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times = makeVars()
+    xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times = getPointsAR(xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times)
+    displayPoints("green", xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times, scale)
 
     while True:
         key = gw.checkKey()
