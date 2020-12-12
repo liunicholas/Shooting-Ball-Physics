@@ -50,6 +50,7 @@ def makeWindowDetails():
     makeText("Velocity:",950,700-30,"white",8,"arial")
     makeText("Force:",950,650-30,"white",8,"arial")
     makeText("Angle:",950,600-30,"white",8,"arial")
+    makeText("Distance:",950,550-30,"white",8,"arial")
 
     line = Line(origin,xAxisEnd)
     line.setFill("white")
@@ -61,30 +62,57 @@ def makeWindowDetails():
     line.setOutline("white")
     line.draw(gw)
 
-def getVectorVelocity():
+def getPoints():
 
     return
 
 def getVectorForce():
 
-    return
+    return xNow, yNow
 
-def getPoints():
+def getVectorVelocity():
 
-    return
+    return vXNow, vYNow
 
 def findScalingNumber():
+    maxX = max([xCoords])
+    maxY = max([yCoords])
 
-    return
+    pixelPerX = 1050/maxX
+    pixelPerY = 600/maxY
+
+    scale = max([pixelPerX,pixelPerY])
+
+    drawAxes(scale)
+
+    return scale
+
+def drawAxes(scale):
+    xD = (1050/scale)/15
+    for i in range(1,16):
+        line = Line(point(xD*i,105),point(xD*i,95))
+        line.setFill("white")
+        line.setOutline("white")
+        line.draw(gw)
+
+
+    yD = (700/scale)/10
+    for i in range(1,11):
+        line = Line(point(95,yD*i),point(105,yD*i))
+        line.setFill("white")
+        line.setOutline("white")
+        line.draw(gw)
 
 def displayPoints():
     for i in range(len(xCoords)):
-        point = Point()
+        point = Point(xCoords[i],yCoords[i])
 
     return
 
 def main():
     makeWindowDetails()
+
+    getpoints()
 
     click = gw.getMouse()
     gw.close()
