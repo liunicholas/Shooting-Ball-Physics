@@ -7,9 +7,15 @@ change variables here:
 '''
 initialVelocity = 20 #m/s
 initialAngle = 30 #degrees
-mass = 4 #kilograms
+mass = 2.27 #kilograms
 timeInterval = 0.01 #seconds
-k = 2 #combination of drag coefficient, cross sectional area, and density of fluid
+k = 0.406 #combination of drag coefficient, cross sectional area, and density of fluid
+
+# initialVelocity = 20 #m/s
+# initialAngle = 30 #degrees
+# mass = 0.057 #kilograms
+# timeInterval = 0.01 #seconds
+# k = 0.001 #combination of drag coefficient, cross sectional area, and density of fluid
 
 width = 1300
 height = 800
@@ -61,10 +67,8 @@ def makeVars():
     yCoords = [yNow]
     xVelocities = [vXNow]
     yVelocities = [vYNow]
-    # velocities = [initialVelocity]
     xForces = [math.cos(math.radians(initialAngle))*(math.pow(initialVelocity,2)*k*-1)]
     yForces = [-9.8*mass+math.sin(math.radians(initialAngle))*(math.pow(initialVelocity,2)*k*-1)]
-    # forces = [math.sqrt(math.pow(math.pow(vXNow,2)*k,2)+math.pow(math.pow(vYNow,2)*k,2))]
     times = [0]
 
     return xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times

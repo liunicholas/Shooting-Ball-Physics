@@ -1,0 +1,7 @@
+Tennis ball:
+Mass = 0.057 kg
+K = 0.001
+
+Yoga ball:
+2.27 kg
+K = 0.406
