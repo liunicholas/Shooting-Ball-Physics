@@ -5,17 +5,11 @@ from time import sleep
 '''
 change variables here:
 '''
-# initialVelocity = 20 #m/s
-# initialAngle = 30 #degrees
-# mass = 2.27 #kilograms
-# timeInterval = 0.01 #seconds
-# k = 0.406 #combination of drag coefficient, cross sectional area, and density of fluid
-
 initialVelocity = 20 #m/s
 initialAngle = 30 #degrees
-mass = 0.057 #kilograms
+mass = 4 #kilograms
 timeInterval = 0.01 #seconds
-k = 0.001 #combination of drag coefficient, cross sectional area, and density of fluid
+k = 2 #combination of drag coefficient, cross sectional area, and density of fluid
 
 width = 1300
 height = 800
