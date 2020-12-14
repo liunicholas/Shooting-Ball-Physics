@@ -5,11 +5,17 @@ from time import sleep
 '''
 change variables here:
 '''
+# initialVelocity = 20 #m/s
+# initialAngle = 30 #degrees
+# mass = 2.27 #kilograms
+# timeInterval = 0.01 #seconds
+# k = 0.406 #combination of drag coefficient, cross sectional area, and density of fluid
+
 initialVelocity = 20 #m/s
 initialAngle = 30 #degrees
-mass = 4 #kilograms
+mass = 0.057 #kilograms
 timeInterval = 0.01 #seconds
-k = 2 #combination of drag coefficient, cross sectional area, and density of fluid
+k = 0.001 #combination of drag coefficient, cross sectional area, and density of fluid
 
 width = 1300
 height = 800
@@ -90,15 +96,18 @@ def getPoints(xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, y
     return xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times
 
 def getVectorVelocity(vXNow, vYNow, xForces, yForces):
+    angle = math.atan(vYNow/vXNow)
 
     force = math.pow(vXNow,2)*k*-1
+    xForce = force*math.cos(angle)
+    yForce = -9.8*mass+force*math.sin(angle)
 
-    xForces.append(force)
-    yForces.append(-9.8*mass)
+    xForces.append(xForce)
+    yForces.append(yForce)
 
-    vXNow += force/mass*timeInterval
+    vXNow += xForce/mass*timeInterval
 
-    vYNow += -9.8*timeInterval
+    vYNow += yForce/mass*timeInterval
 
     return vXNow, vYNow
 
@@ -163,6 +172,11 @@ def displayPoints(xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocitie
 
 def main():
     makeWindowDetails()
+
+    while True:
+        key = gw.checkKey()
+        if key != "":
+            break
 
     xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times = makeVars()
 

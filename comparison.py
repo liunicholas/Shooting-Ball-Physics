@@ -5,17 +5,17 @@ from time import sleep
 '''
 change variables here:
 '''
-initialVelocity = 20 #m/s
-initialAngle = 30 #degrees
-mass = 2.27 #kilograms
-timeInterval = 0.01 #seconds
-k = 0.406 #combination of drag coefficient, cross sectional area, and density of fluid
-
 # initialVelocity = 20 #m/s
 # initialAngle = 30 #degrees
-# mass = 0.057 #kilograms
+# mass = 2.27 #kilograms
 # timeInterval = 0.01 #seconds
-# k = 0.001 #combination of drag coefficient, cross sectional area, and density of fluid
+# k = 0.406 #combination of drag coefficient, cross sectional area, and density of fluid
+
+initialVelocity = 20 #m/s
+initialAngle = 30 #degrees
+mass = 0.057 #kilograms
+timeInterval = 0.01 #seconds
+k = 0.001 #combination of drag coefficient, cross sectional area, and density of fluid
 
 width = 1300
 height = 800
@@ -237,6 +237,11 @@ def displayPoints(color, xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVe
 
 def main():
     makeWindowDetails()
+
+    while True:
+        key = gw.checkKey()
+        if key != "":
+            break
 
     xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times = makeVars()
     xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times = getPointsIdeal(xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVelocities, yVelocities, xForces, yForces, times)
