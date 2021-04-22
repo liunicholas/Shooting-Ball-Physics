@@ -256,7 +256,7 @@ def displayPoints(color, xNow, yNow, vXNow, vYNow, angles, xCoords, yCoords, xVe
         text5.undraw()
         text6.undraw()
 
-        time.sleep(0.01)
+        time.sleep(0.005)
 
     return
 
